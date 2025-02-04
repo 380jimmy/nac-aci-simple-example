@@ -7,9 +7,9 @@ terraform {
 }
 
 provider "aci" {
-  username = "username"
-  password = "password"
-  url      = "https://apic.url"
+  username = "sa-slabapi@ad.net.fr.ch"
+  password = "N0st4hmbE3BZhQKgxo8t"
+  url      = "https://slabapic201.ntw.fr.local/"
 }
 
 module "aci" {

@@ -19,6 +19,7 @@ apic:
 
         - name: 10.1.202.0_24
           vrf: DEV-VRF
+          advertise_host_routes: true
           subnets:
           - ip: 10.1.202.1/24
 

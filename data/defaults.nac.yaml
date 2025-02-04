@@ -4,4 +4,4 @@ defaults:
 #   apic:
 #     tenants:
 #       bridge_domains:
-         unicast_routing: false
+         unicast_routing: true

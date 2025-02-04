@@ -4,33 +4,59 @@ apic:
     - name: DEV
 
       vrfs:
-        - name: DEV-VRF
+        - name: DEV.DEV-VRF
 
       bridge_domains:
         - name: 10.1.200.0_24
-          vrf: DEV-VRF
-          subnets:
-          - ip: 10.1.200.1/24
+          vrf: DEV.DEV-VRF
+          subnets: 
+          - ip: 10.1.200.1/24     
 
         - name: 10.1.201.0_24
-          vrf: DEV-VRF
-          subnets:
-          - ip: 10.1.201.1/24
+          vrf: DEV.DEV-VRF
+          subnets: 
+          - ip: 10.1.201.1/24  
 
         - name: 10.1.202.0_24
-          vrf: DEV-VRF
+          vrf: DEV.DEV-VRF
           advertise_host_routes: true
-          subnets:
-          - ip: 10.1.202.1/24
+          subnets: 
+          - ip: 10.1.202.1/24  
 
       application_profiles:
         - name: VLANS
           endpoint_groups:
             - name: VLAN200
               bridge_domain: 10.1.200.0_24
+              contracts:
+                consumers:
+                  - PERMIT-TO-VLAN201
 
             - name: VLAN201
               bridge_domain: 10.1.201.0_24
+              contracts:
+                providers:
+                  - PERMIT-TO-VLAN201
 
             - name: VLAN202
               bridge_domain: 10.1.202.0_24
+
+      filters:
+        - name: TCP-SRC-ANY-TO-DST-80
+          entries:
+            - name: SRC-ANY-TO-DST-80
+              destination_from_port: 80
+              destination_to_port: 80
+        - name: TCP-SRC-ANY-TO-DST-443
+          entries:
+            - name: SRC-ANY-TO-DST-443
+              destination_from_port: 443
+              destination_to_port: 443
+            
+      contracts:
+        - name: PERMIT-TO-VLAN201
+          subjects:
+            - name: TCP-ENTRIES
+              filters:
+                - filter: TCP-SRC-ANY-TO-DST-80
+                - filter: TCP-SRC-ANY-TO-DST-443

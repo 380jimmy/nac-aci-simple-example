@@ -21,10 +21,6 @@ apic:
           vrf: DEV-VRF
           subnets:
           - ip: 10.1.202.1/24
-        - name: 10.1.203.0_24
-          vrf: DEV.DEV-VRF
-          subnets: 
-          - ip: 10.1.203.1/24  
 
       application_profiles:
         - name: VLANS
